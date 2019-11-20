@@ -49,7 +49,7 @@ def main():
     # -- KMeans clustering
     # -- replace colors in the image with their respective centroid
     print("\n\n")
-    means = KMeans(init='random', n_init=1, max_iter=10, n_clusters=k, verbose='true')
+    means = KMeans(init='random', n_init=1, max_iter=100, n_clusters=k, verbose='true')
     means.fit(X)
     print("num iterations = ", means.n_iter_)
     print("\n\n")
@@ -88,7 +88,7 @@ def main():
     #inertia_plot.xticks(np.arange(3), ('0', '1', '2'))
     inertia_plot.set_xlabel('Iteration number')
     inertia_plot.set_ylabel('Inertia')
-    inertia_plot.set_title('Inertia When k = 2')
+    inertia_plot.set_title('Inertia When k = 5')
     # inertia_plot.legend(loc='lower right')
     inertia_plot.grid(True)
     plt.xticks(np.arange(9), ('0', '1', '2', '3', '4', '5', '6', '7', '8'))
