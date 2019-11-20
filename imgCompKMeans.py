@@ -38,7 +38,6 @@ def main():
     k = parms.k
     print("\nK value = ", k)
     img = imread(parms.imageFileName)
-    img = img / 255
     img_size = img.shape
 
     # Reshape it to be 2-dimension
