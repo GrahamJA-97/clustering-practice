@@ -75,23 +75,24 @@ def main():
     plt.tight_layout()
     plt.savefig(parms.outputFileName,dpi=400,bbox_inches='tight',pad_inches=0.05)
 
+    # Code to create inertia plots
     inertia_plot = plt.subplot()
 
-    # hard coded from terminal output until I can figure out how to get them as an attribute :'(
-    # inertia_vals = [40424113.61009503, 8949075.221586054, 6980429.664540419, 6854814.358134074, 6834318.287227988, 6833921.189624267]
-    inertia_vals = [1657440105.3272345, 805157466.9486136, 749328478.7725908, 745880014.1960377, 744988823.2581699, 744745397.2405722, 744656291.3486621, 744607890.437963, 744574450.8356292]
+    # hard coded from terminal output (verbose=true_ until I can figure out how to get them as an attribute :'(
+    inertia_vals = [40424113.61009503, 8949075.221586054, 6980429.664540419, 6854814.358134074, 6834318.287227988, 6833921.189624267]
+
     inertia_plot.margins(2, 2)
-    inertia_plot.set_xlim(0, 8)
-    inertia_plot.set_ylim(700000000, 2000000000)
+    inertia_plot.set_xlim(0, 10)
+    inertia_plot.set_ylim(144000000, 280000000)
     # inertia_plot.axis(xlim=(0, 3), ylim=(3180000000, 5000000000))
     inertia_plot.plot(inertia_vals)
     #inertia_plot.xticks(np.arange(3), ('0', '1', '2'))
     inertia_plot.set_xlabel('Iteration number')
     inertia_plot.set_ylabel('Inertia')
-    inertia_plot.set_title('Inertia When k = 5')
+    inertia_plot.set_title('Inertia When k = 20')
     # inertia_plot.legend(loc='lower right')
     inertia_plot.grid(True)
-    plt.xticks(np.arange(9), ('0', '1', '2', '3', '4', '5', '6', '7', '8'))
+    plt.xticks(np.arange(11), ('0', '5', '10', '15', '20', '25', '30', '35', '40', '45', '50'))
 
     plt.tight_layout()
     plt.show()
