@@ -80,19 +80,19 @@ def main():
 
     # hard coded from terminal output until I can figure out how to get them as an attribute :'(
     # inertia_vals = [40424113.61009503, 8949075.221586054, 6980429.664540419, 6854814.358134074, 6834318.287227988, 6833921.189624267]
-    inertia_vals = [3161066078.1332197, 16867112.311636746, 15924913.279704696, 15915120.600694442]
+    inertia_vals = [46993847.138738915, 10005866.51959947, 8337874.353834904, 8337423.726102601, 8337423.726102601]
     inertia_plot.margins(2, 2)
     inertia_plot.set_xlim(0, 3)
-    inertia_plot.set_ylim(15000000, 318000000)
+    inertia_plot.set_ylim(8000000, 50000000)
     # inertia_plot.axis(xlim=(0, 3), ylim=(3180000000, 5000000000))
     inertia_plot.plot(inertia_vals)
     #inertia_plot.xticks(np.arange(3), ('0', '1', '2'))
     inertia_plot.set_xlabel('Iteration number')
     inertia_plot.set_ylabel('Inertia')
-    inertia_plot.set_title('Inertia When k = 5')
+    inertia_plot.set_title('Inertia When k = 10')
     # inertia_plot.legend(loc='lower right')
     inertia_plot.grid(True)
-    plt.xticks(np.arange(4), ('0', '1', '2', '3'))
+    plt.xticks(np.arange(5), ('0', '1', '2', '3', '4'))
 
     plt.tight_layout()
     plt.show()
