@@ -48,8 +48,11 @@ def main():
     # Insert your code here to perform
     # -- KMeans clustering
     # -- replace colors in the image with their respective centroid
+    print("\n\n")
     means = KMeans(init='random', n_init=1, max_iter=10, n_clusters=k, verbose='true')
     means.fit(X)
+    print("num iterations = ", means.n_iter_)
+    print("\n\n")
 
     # replaces colors with their centroid values.
     centroids = np.array([list(means.cluster_centers_[label]) for label in means.labels_])
@@ -64,13 +67,36 @@ def main():
     fig, ax = plt.subplots(1, 1, figsize = (8, 8))
 
     Rss11 = Image.fromarray(X_compressed)
-    Rss11.save("Rss1-1.jpg")
+    Rss11.save(parms.outputFileName + ".jpg")
+
 
     ax.imshow(X_compressed)
     for ax in fig.axes:
         ax.axis('off')
     plt.tight_layout()
     plt.savefig(parms.outputFileName,dpi=400,bbox_inches='tight',pad_inches=0.05)
+
+    inertia_plot = plt.subplot()
+
+    # hard coded from terminal output until I can figure out how to get them as an attribute :'(
+    # inertia_vals = [40424113.61009503, 8949075.221586054, 6980429.664540419, 6854814.358134074, 6834318.287227988, 6833921.189624267]
+    inertia_vals = [3185479503.579998, 3183311674.158887, 3183310512.561799]
+    inertia_plot.margins(2, 2)
+    inertia_plot.set_xlim(0, 2)
+    inertia_plot.set_ylim(3180000000, 3200000000)
+    # inertia_plot.axis(xlim=(0, 3), ylim=(3180000000, 5000000000))
+    inertia_plot.plot(inertia_vals)
+    #inertia_plot.xticks(np.arange(3), ('0', '1', '2'))
+    inertia_plot.set_xlabel('Iteration number')
+    inertia_plot.set_ylabel('Inertia')
+    inertia_plot.set_title('Inertia When k = 2')
+    # inertia_plot.legend(loc='lower right')
+    inertia_plot.grid(True)
+    plt.xticks(np.arange(3), ('0', '1', '2'))
+    plt.yticks(np.arange(3), ('3.1800e9', '3.19001e9', '3.1950e9'))
+
+    plt.tight_layout()
+    plt.show()
 
 if __name__ == '__main__':
     main()
