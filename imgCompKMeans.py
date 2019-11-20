@@ -80,19 +80,19 @@ def main():
 
     # hard coded from terminal output until I can figure out how to get them as an attribute :'(
     # inertia_vals = [40424113.61009503, 8949075.221586054, 6980429.664540419, 6854814.358134074, 6834318.287227988, 6833921.189624267]
-    inertia_vals = [47064188.46186321, 10026941.553834816, 8380171.152620729, 8380147.372099533, 8380147.372099533]
+    inertia_vals = [6895195180.820906, 4655905493.409947, 2673429524.0100164, 2345929813.607014, 2314112720.280505, 2311033445.6173253, 2310732996.0879884, 2310690422.7376356]
     inertia_plot.margins(2, 2)
-    inertia_plot.set_xlim(0, 3)
-    inertia_plot.set_ylim(7500000, 50000000)
+    inertia_plot.set_xlim(0, 7)
+    inertia_plot.set_ylim(2000000000, 7000000000)
     # inertia_plot.axis(xlim=(0, 3), ylim=(3180000000, 5000000000))
     inertia_plot.plot(inertia_vals)
     #inertia_plot.xticks(np.arange(3), ('0', '1', '2'))
     inertia_plot.set_xlabel('Iteration number')
     inertia_plot.set_ylabel('Inertia')
-    inertia_plot.set_title('Inertia When k = 20')
+    inertia_plot.set_title('Inertia When k = 2')
     # inertia_plot.legend(loc='lower right')
     inertia_plot.grid(True)
-    plt.xticks(np.arange(5), ('0', '1', '2', '3', '4'))
+    plt.xticks(np.arange(8), ('0', '1', '2', '3', '4', '5', '6', '7'))
 
     plt.tight_layout()
     plt.show()
