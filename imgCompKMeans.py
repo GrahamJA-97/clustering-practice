@@ -10,6 +10,7 @@ import matplotlib.pyplot as plt
 
 from sklearn.cluster import KMeans
 from sklearn.metrics import pairwise_distances_argmin_min
+from sklearn.metrics import silhouette_score
 from sklearn.preprocessing import StandardScaler
 
 import argparse
@@ -75,31 +76,47 @@ def main():
     plt.tight_layout()
     plt.savefig(parms.outputFileName,dpi=400,bbox_inches='tight',pad_inches=0.05)
 
+    ##### SILhouette calculation #####
+    print("Start Silhouette")
+    actualSilhouette = silhouette_score(X, means.labels_)
+    print("Actual score:", actualSilhouette)
+
+    # calculate pairwise distances (x, X) = a 1 by len(X)
+    for x in X:
+        dist = pairwise_distances_argmin_min(x, X)
+
+        for k in K: # for cluster in Clusters
+            np.mean(dist[means.labels_ == 4]) 
+
+
+
+
+
     # Code to create inertia plots
-    inertia_plot = plt.subplot()
+    # inertia_plot = plt.subplot()
 
     # hard coded from terminal output (verbose=true_ until I can figure out how to get them as an attribute :'(
     # inertia_vals = [61008498183.83514, 34454563582.18372, 32259669990.29129, 31837458649.92389, 31747068821.582188, 31727383981.42274,
     # 31723153271.2726, 31721853052.235714]
 
-    inertia_vals = []
+    # inertia_vals = []
 
 
-    inertia_plot.margins(2, 2)
-    inertia_plot.set_xlim(0, 12)
-    inertia_plot.set_ylim(1700000000, 5000000000)
-    # inertia_plot.axis(xlim=(0, 3), ylim=(3180000000, 5000000000))
-    inertia_plot.plot(inertia_vals)
-    #inertia_plot.xticks(np.arange(3), ('0', '1', '2'))
-    inertia_plot.set_xlabel('Iteration number')
-    inertia_plot.set_ylabel('Inertia')
-    inertia_plot.set_title('Inertia When k = 20')
-    # inertia_plot.legend(loc='lower right')
-    inertia_plot.grid(True)
-    plt.xticks(np.arange(13), ('0', '5', '10', '15', '20', '25', '30', '35', '40', '45', '50', '55', '60', '63'))
+    # inertia_plot.margins(2, 2)
+    # inertia_plot.set_xlim(0, 12)
+    # inertia_plot.set_ylim(1700000000, 5000000000)
+    # # inertia_plot.axis(xlim=(0, 3), ylim=(3180000000, 5000000000))
+    # inertia_plot.plot(inertia_vals)
+    # #inertia_plot.xticks(np.arange(3), ('0', '1', '2'))
+    # inertia_plot.set_xlabel('Iteration number')
+    # inertia_plot.set_ylabel('Inertia')
+    # inertia_plot.set_title('Inertia When k = 20')
+    # # inertia_plot.legend(loc='lower right')
+    # inertia_plot.grid(True)
+    # plt.xticks(np.arange(13), ('0', '5', '10', '15', '20', '25', '30', '35', '40', '45', '50', '55', '60', '63'))
 
-    plt.tight_layout()
-    plt.show()
+    # plt.tight_layout()
+    # plt.show()
 
 if __name__ == '__main__':
     main()
