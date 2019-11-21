@@ -79,21 +79,26 @@ def main():
     inertia_plot = plt.subplot()
 
     # hard coded from terminal output (verbose=true_ until I can figure out how to get them as an attribute :'(
-    inertia_vals = [61008498183.83514, 34454563582.18372, 32259669990.29129, 31837458649.92389, 31747068821.582188, 31727383981.42274,
-                    31723153271.2726, 31721853052.235714]
+    # inertia_vals = [61008498183.83514, 34454563582.18372, 32259669990.29129, 31837458649.92389, 31747068821.582188, 31727383981.42274,
+    # 31723153271.2726, 31721853052.235714]
+
+    inertia_vals = [12490234485.368946, 11246491589.41661, 10542546981.535439, 9814395817.846119, 9601246265.559986, 9569585714.092802,
+                    9552379685.07766, 9538873401.358212, 9530237499.734642, 9523816412.723768, 9518001108.28621, 9514223188.671745,
+                    9511327339.012611, 9508820906.145636, 9507524162.021984, 9506343038.48695, 9505125947.21421, 9504427222.017834,
+                    9504064614.341906]
 
     inertia_plot.margins(2, 2)
-    inertia_plot.set_xlim(0, 7)
-    inertia_plot.set_ylim(31000000000, 61100000000)
+    inertia_plot.set_xlim(0, 4)
+    inertia_plot.set_ylim(9000000000, 13000000000)
     # inertia_plot.axis(xlim=(0, 3), ylim=(3180000000, 5000000000))
     inertia_plot.plot(inertia_vals)
     #inertia_plot.xticks(np.arange(3), ('0', '1', '2'))
     inertia_plot.set_xlabel('Iteration number')
     inertia_plot.set_ylabel('Inertia')
-    inertia_plot.set_title('Inertia When k = 2')
+    inertia_plot.set_title('Inertia When k = 5')
     # inertia_plot.legend(loc='lower right')
     inertia_plot.grid(True)
-    plt.xticks(np.arange(8), ('0', '1', '2', '3', '4', '5', '6', '7'))
+    plt.xticks(np.arange(19), ('0', '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19'))
 
     plt.tight_layout()
     plt.show()
