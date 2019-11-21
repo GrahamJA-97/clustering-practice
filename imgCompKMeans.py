@@ -28,8 +28,8 @@ def parseArguments():
                         help='number of clusters')
 
     parser.add_argument('--outputFileName', action='store',
-                       dest='outputFileName', default="", required=True,
-                       help='output imagefile name')
+                        dest='outputFileName', default="", required=True,
+                        help='output imagefile name')
 
     return parser.parse_args()
 
@@ -50,22 +50,25 @@ def main():
     # -- KMeans clustering
     # -- replace colors in the image with their respective centroid
     print("\n\n")
-    means = KMeans(init='random', n_init=1, max_iter=100, n_clusters=k, verbose='true')
+    means = KMeans(init='random', n_init=1, max_iter=100,
+                   n_clusters=k, verbose='true')
     means.fit(X)
     print("num iterations = ", means.n_iter_)
     print("\n\n")
 
     # replaces colors with their centroid values.
-    centroids = np.array([list(means.cluster_centers_[label]) for label in means.labels_])
+    centroids = np.array([list(means.cluster_centers_[label])
+                          for label in means.labels_])
     centroids = centroids.astype("uint8")
 
     # save modified image (code assumes new image in a variable
     # called X_compressed)
     # Reshape to have the same dimension as the original image
 
-    X_compressed = np.reshape(centroids, (img_size[0], img_size[1], img_size[2]))
+    X_compressed = np.reshape(
+        centroids, (img_size[0], img_size[1], img_size[2]))
 
-    fig, ax = plt.subplots(1, 1, figsize = (8, 8))
+    fig, ax = plt.subplots(1, 1, figsize=(8, 8))
 
     Rss11 = Image.fromarray(X_compressed)
     Rss11.save(parms.outputFileName + ".jpg")
@@ -74,25 +77,35 @@ def main():
     for ax in fig.axes:
         ax.axis('off')
     plt.tight_layout()
-    plt.savefig(parms.outputFileName,dpi=400,bbox_inches='tight',pad_inches=0.05)
+    plt.savefig(parms.outputFileName, dpi=400,
+                bbox_inches='tight', pad_inches=0.05)
 
-    ##### SILhouette calculation #####
-    print("Start Silhouette")
+    ##### Silhouette calculation #####
+    print("Silhouette Calculations: skLearn vs Us")
     actualSilhouette = silhouette_score(X, means.labels_)
-    print("Actual score:", actualSilhouette)
+    print("skLearn score:", actualSilhouette)
 
-    # calculate pairwise distances (x, X) = a 1 by len(X)
-    for x in X:
+    # calculate pairwise distances for each point in X
+    for x, label in zip(X, range(len(means.labels_))):
+        # distances to all other points
         dist = pairwise_distances_argmin_min(x, X)
+        # calculate a = mean intra-cluster distance
+        currentCluster = means.labels_[label]
+        a = np.mean(dist[means.labels_ == currentCluster])
+        # calculate b = mean nearest cluster distance
+        nearestDist = np.mean(dist[means.labels_ == 0])
+        for cluster in range(k):
+            if (cluster != currentCluster):
+                newDist = np.mean(dist[means.labels_ == cluster])
+                if (newDist < nearestDist):
+                    nearestDist = newDist
+        b = nearestDist
+        silSamples = (b - a) / max(a, b) #FIXME
+        
+        #for k in K:  # for cluster in Clusters
+         #   np.mean(dist[means.labels_ == 4])  # FIXME 4 is a placeholder
 
-        for k in K: # for cluster in Clusters
-            np.mean(dist[means.labels_ == 4]) 
-
-
-
-
-
-    # Code to create inertia plots
+    ##### Code to create inertia plots #####
     # inertia_plot = plt.subplot()
 
     # hard coded from terminal output (verbose=true_ until I can figure out how to get them as an attribute :'(
@@ -114,10 +127,7 @@ def main():
     # # inertia_plot.legend(loc='lower right')
     # inertia_plot.grid(True)
     # plt.xticks(np.arange(13), ('0', '5', '10', '15', '20', '25', '30', '35', '40', '45', '50', '55', '60', '63'))
-
     # plt.tight_layout()
     # plt.show()
-
 if __name__ == '__main__':
     main()
-
