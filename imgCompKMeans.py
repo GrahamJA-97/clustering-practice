@@ -9,7 +9,7 @@ from matplotlib.image import imread
 import matplotlib.pyplot as plt
 
 from sklearn.cluster import KMeans
-from sklearn.metrics import pairwise_distances_argmin_min
+from sklearn.metrics import pairwise_distances
 from sklearn.metrics import silhouette_score
 from sklearn.preprocessing import StandardScaler
 
@@ -84,11 +84,17 @@ def main():
     print("Silhouette Calculations: skLearn vs Us")
     actualSilhouette = silhouette_score(X, means.labels_)
     print("skLearn score:", actualSilhouette)
-
+    print(img.shape)
+    print(X.shape)
     # calculate pairwise distances for each point in X
     for x, label in zip(X, range(len(means.labels_))):
         # distances to all other points
-        dist = pairwise_distances_argmin_min(x, X)
+        
+        print(x)
+        x = np.reshape(x, (-1, 1))
+        print(x)
+        
+        dist = pairwise_distances(x, X)
         # calculate a = mean intra-cluster distance
         currentCluster = means.labels_[label]
         a = np.mean(dist[means.labels_ == currentCluster])
@@ -100,10 +106,7 @@ def main():
                 if (newDist < nearestDist):
                     nearestDist = newDist
         b = nearestDist
-        silSamples = (b - a) / max(a, b) #FIXME
-        
-        #for k in K:  # for cluster in Clusters
-         #   np.mean(dist[means.labels_ == 4])  # FIXME 4 is a placeholder
+        silSamples = (b - a) / max(a, b) #FIXME need to calculate for all samples
 
     ##### Code to create inertia plots #####
     # inertia_plot = plt.subplot()
@@ -129,5 +132,6 @@ def main():
     # plt.xticks(np.arange(13), ('0', '5', '10', '15', '20', '25', '30', '35', '40', '45', '50', '55', '60', '63'))
     # plt.tight_layout()
     # plt.show()
+
 if __name__ == '__main__':
     main()
