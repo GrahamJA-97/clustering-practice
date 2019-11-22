@@ -81,32 +81,30 @@ def main():
                 bbox_inches='tight', pad_inches=0.05)
 
     ##### Silhouette calculation #####
-    print("Silhouette Calculations: skLearn vs Us")
-    actualSilhouette = silhouette_score(X, means.labels_)
-    print("skLearn score:", actualSilhouette)
-    print(img.shape)
-    print(X.shape)
-    # calculate pairwise distances for each point in X
-    for x, label in zip(X, range(len(means.labels_))):
-        # distances to all other points
+    # print("Silhouette Calculations: skLearn vs Us")
+    # actualSilhouette = silhouette_score(X, means.labels_)
+    # print("skLearn score:\t", actualSilhouette)
+    # # calculate pairwise distances for each point in X
+    # total = 0
+    # for x, label in zip(X, range(len(means.labels_))):
+    #     # distances to all other points
+    #     x = np.reshape(x, (-1, X.shape[1]))
+    #     dist = pairwise_distances(x, X)
+    #     # calculate a = mean intra-cluster distance
+    #     currentCluster = means.labels_[label]
+    #     a = np.mean(dist[0][means.labels_ == currentCluster])
         
-        print(x)
-        x = np.reshape(x, (-1, 1))
-        print(x)
-        
-        dist = pairwise_distances(x, X)
-        # calculate a = mean intra-cluster distance
-        currentCluster = means.labels_[label]
-        a = np.mean(dist[means.labels_ == currentCluster])
-        # calculate b = mean nearest cluster distance
-        nearestDist = np.mean(dist[means.labels_ == 0])
-        for cluster in range(k):
-            if (cluster != currentCluster):
-                newDist = np.mean(dist[means.labels_ == cluster])
-                if (newDist < nearestDist):
-                    nearestDist = newDist
-        b = nearestDist
-        silSamples = (b - a) / max(a, b) #FIXME need to calculate for all samples
+    #     # calculate b = mean nearest cluster distance
+    #     nearestDist = np.mean(dist[0][means.labels_ == 0])
+    #     for cluster in range(k):
+    #         if (cluster != currentCluster):
+    #             newDist = np.mean(dist[0][means.labels_ == cluster])
+    #             if (newDist < nearestDist):
+    #                 nearestDist = newDist
+    #     b = nearestDist
+    #     total += (b - a) / max(a, b)
+    # customCoe = total / len(means.labels_)
+    # print("Our Score:\t", customCoe)
 
     ##### Code to create inertia plots #####
     # inertia_plot = plt.subplot()
